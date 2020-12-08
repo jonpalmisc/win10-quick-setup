@@ -1,13 +1,4 @@
-##########
-# Win 10 / Server 2016 / Server 2019 Initial Setup Script - Tweak library
-# Author: Disassembler <disassembler@dasm.cz>
-# Version: v3.10, 2020-07-15
-# Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
-##########
-
-##########
 #region Privacy Tweaks
-##########
 
 # Disable Telemetry
 # Note: This tweak also disables the possibility to join Windows Insider Program and breaks Microsoft Intune enrollment/deployment, as these feaures require Telemetry data.
@@ -560,15 +551,10 @@ function EnableRecentFiles {
   Remove-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Name "NoRecentDocsHistory" -ErrorAction SilentlyContinue
 }
 
-##########
 #endregion Privacy Tweaks
-##########
 
-
-
-##########
 #region UWP Privacy Tweaks
-##########
+
 # Universal Windows Platform (UWP) is an API for common application and device controls unified for all devices capable of running Windows 10.
 # UWP applications are running sandboxed and the user can control devices and capabilities available to them.
 
@@ -827,15 +813,9 @@ function EnableUWPSwapFile {
   Remove-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" -Name "SwapfileControl" -ErrorAction SilentlyContinue
 }
 
-##########
 #endregion UWP Privacy Tweaks
-##########
 
-
-
-##########
 #region Security Tweaks
-##########
 
 # Lower UAC level (disabling it completely would break apps)
 function SetUACLow {
@@ -1133,15 +1113,9 @@ function SetDEPOptIn {
   bcdedit /set `{current`} nx OptIn | Out-Null
 }
 
-##########
 #endregion Security Tweaks
-##########
 
-
-
-##########
 #region Network Tweaks
-##########
 
 # Set current network profile to private (allow file sharing, device discovery, etc.)
 function SetCurrentNetworkPrivate {
@@ -1389,15 +1363,9 @@ function DisableRemoteDesktop {
   Disable-NetFirewallRule -Name "RemoteDesktop*"
 }
 
-##########
 #endregion Network Tweaks
-##########
 
-
-
-##########
 #region Service Tweaks
-##########
 
 # Disable offering of Malicious Software Removal Tool through Windows Update
 function DisableUpdateMSRT {
@@ -1789,15 +1757,9 @@ function EnableAutoRebootOnCrash {
   Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\CrashControl" -Name "AutoReboot" -Type DWord -Value 1
 }
 
-##########
 #endregion Service Tweaks
-##########
 
-
-
-##########
 #region UI Tweaks
-##########
 
 # Disable Action Center (Notification Center)
 function DisableActionCenter {
@@ -2453,15 +2415,9 @@ function EnableF1HelpKey {
   Remove-Item "HKCU:\Software\Classes\TypeLib\{8cec5860-07a1-11d9-b15e-000d56bfe6ee}\1.0\0" -Recurse -ErrorAction SilentlyContinue
 }
 
-##########
 #endregion UI Tweaks
-##########
 
-
-
-##########
 #region Explorer UI Tweaks
-##########
 
 # Show full directory path in Explorer title bar
 function ShowExplorerTitleFullPath {
@@ -3149,15 +3105,9 @@ function EnableThumbsDBOnNetwork {
   Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "DisableThumbsDBOnNetworkFolders" -ErrorAction SilentlyContinue
 }
 
-##########
 #endregion Explorer UI Tweaks
-##########
 
-
-
-##########
 #region Application Tweaks
-##########
 
 # Disable OneDrive
 function DisableOneDrive {
@@ -3935,15 +3885,9 @@ function InstallFaxAndScan {
   Get-WindowsCapability -Online | Where-Object { $_.Name -like "Print.Fax.Scan*" } | Add-WindowsCapability -Online | Out-Null
 }
 
-##########
 #endregion Application Tweaks
-##########
 
-
-
-##########
 #region Server specific Tweaks
-##########
 
 # Hide Server Manager after login
 function HideServerManagerOnLogin {
@@ -4035,15 +3979,9 @@ function DisableAudio {
   Set-Service "Audiosrv" -StartupType Manual
 }
 
-##########
 #endregion Server specific Tweaks
-##########
 
-
-
-##########
 #region Unpinning
-##########
 
 # Unpin all Start Menu tiles
 # Note: This function has no counterpart. You have to pin the tiles back manually.
@@ -4071,15 +4009,9 @@ function UnpinTaskbarIcons {
   Remove-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband" -Name "FavoritesResolve" -ErrorAction SilentlyContinue
 }
 
-##########
 #endregion Unpinning
-##########
 
-
-
-##########
 #region Auxiliary Functions
-##########
 
 # Wait for key press
 function WaitForKey {
@@ -4093,11 +4025,7 @@ function Restart {
   Restart-Computer
 }
 
-##########
 #endregion Auxiliary Functions
-##########
-
-
 
 # Export functions
 Export-ModuleMember -Function *
